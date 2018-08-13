@@ -7,7 +7,7 @@
       yum:
         service: httpd
         state: present
-        notify: starthttpd
+      notify: starthttpd
       when: ansible_os_family=="RedHat" 
       
     - name: copy file from cm to node
