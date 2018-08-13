@@ -2,24 +2,24 @@
 - hosts: mywebservers
   become: yes
   tasks:
-    - include_tasks: myfile.yml
-    - name: install webserver on redhat
-      yum:
-        service: httpd
-        state: present
-      notify: starthttpd
-      when: ansible_os_family=="RedHat" 
-      
-    - name: copy file from cm to node
-      template:
-        src: myindex.j2
-        dest: /var/www/html/index.html
-      notify: starthttpd
-      when: ansible_os_family=="RedHat"
-      
-      
+  - include_tasks: myfile.yml
+  - name: install webserver on redhat
+    yum:
+      name: httpd
+      state: present
+    notify: starthttpd
+    when: ansible_os_family =="RedHat"
+     
+  - name: copy the index file from cm to all redhat nodes
+    template:
+      src: myindex.j2
+      dest: /var/www/html/index.html
+    notify: starthttpd
+    when: ansible_os_family =="RedHat"
+
+
   handlers:
-    - name: starthttpd
-      service:
-        name: httpd
-        state: started
+  - name: starthttpd 
+    service:
+      name: httpd
+      state: started
