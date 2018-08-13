@@ -1,2 +1,9 @@
+[mywebservers]
 172.31.6.33
+172.31.2.226
+
+[myubuntuos]
+172.31.6.33
+
+[myredhatos]
 172.31.2.226
