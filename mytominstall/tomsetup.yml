@@ -1,0 +1,4 @@
+---
+- hosts: mywebservers
+  roles:
+    - { role: mytominstall, when: ansible_os_family=="RedHat"} 

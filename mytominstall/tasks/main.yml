@@ -1,2 +1,26 @@
 ---
 # tasks file for mytominstall
+- name: install tomcat on linux
+  yum:
+    name: tomcat
+    state: present
+  when: ansible_os_family=="RedHat"
+
+- name: copy tomcat config files
+  template:
+    src: templates/tomconfig.j2
+    dest: /usr/share/tomcat/conf/tomcat.conf
+  when: ansible_os_family=="RedHat"
+- name: install Admin packages
+  yum:
+    name: "{{ item }}" 
+    state: present
+  with_items:
+    - tomcat-webapps
+    - tomcat-admin-webapps
+  when: ansible_os_family=="RedHat"  
+- name: copy tomcat user file on all nodes
+  template:
+    src: templates/tomusers.j2
+    dest: /usr/share/tomcat/conf/tomcat-users.xml
+    when: ansible_os_family=="RedHat"
